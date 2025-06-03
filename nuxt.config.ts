@@ -11,6 +11,6 @@ export default defineNuxtConfig({
       link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
     },
   },
-  modules: ["@nuxt/eslint", "@nuxt/content"],
+  modules: ["@nuxt/content"],
   css: ["~/assets/css/main.css"],
 });
