@@ -43,7 +43,7 @@
         </section>
         <section>
             <h2>Experience</h2>
-            <div class="experience">
+            <div class="experience no-page-break">
                 <h3>Software Engineer, <a href="https://sep.com">SEP</a></h3>
                 <small>Jun 2024-Present</small>
                 <ul>
@@ -53,7 +53,7 @@
                 </ul>
             </div>
 
-            <div class="experience">
+            <div class="experience no-page-break">
                 <h3>Software Engineering Intern, <a href="https://xperi.com">Xperi Corporation</a></h3>
                 <small>May 2022-Dec 2023</small>
                 <ul>
@@ -67,7 +67,7 @@
                 </ul>
             </div>
 
-            <div class="experience">
+            <div class="experience no-page-break">
                 <h3>Web Developer and Tutor, TechLab Education</h3>
                 <small>Jun 2018-Jul 2020</small>
                 <ul>
@@ -82,13 +82,13 @@
 
         <section>
             <h2>Projects</h2>
-            <div class="experience">
+            <div class="experience no-page-break">
                 <h3>rust</h3>
                 <small><a href="https://github.com/rust-lang/rust">github.com/rust-lang/rust</a></small>
                 <p class="indent">Contributed to the compiler and standard library</p>
             </div>
 
-            <div class="experience">
+            <div class="experience no-page-break">
                 <h3>pbrtrs</h3>
                 <small><a href="https://github.com/zacklukem/pbrtrs">github.com/zacklukem/pbrtrs</a></small>
                 <p class="indent">Physically based ray tracer based on the book <a
@@ -96,7 +96,7 @@
                         Rendering: From Theory To Implementation</a></p>
             </div>
 
-            <div class="experience">
+            <div class="experience no-page-break">
                 <h3>aoclang</h3>
                 <small><a href="https://github.com/zacklukem/aoclang">github.com/zacklukem/aoclang</a></small>
                 <p class="indent">Dynamically typed functional programming language with a Scala compiler and Rust

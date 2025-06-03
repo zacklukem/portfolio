@@ -6,14 +6,14 @@
                     <h1><a class="simple" href="/">Zachary Mayhew</a></h1>
                 </div>
                 <div class="nav-right">
-                    <a href="https://github.com/zacklukem">GitHub</a>
-                    <a href="https://linkedin.com/in/zacklukem">LinkedIn</a>
+                    <PrintLink href="https://github.com/zacklukem">GitHub</PrintLink>
+                    <PrintLink href="https://linkedin.com/in/zacklukem">LinkedIn</PrintLink>
                 </div>
             </nav>
             <main class="main-content">
                 <slot />
             </main>
-            <footer class="footer">
+            <footer class="footer print-hidden">
                 <hr>
                 <div class="footer-content">
                     <div>
@@ -84,5 +84,20 @@
     display: flex;
     gap: 20px;
     flex-direction: column;
+}
+
+@media print {
+    .layout-container {
+        max-width: none;
+    }
+
+    .navbar {
+        padding: 0;
+        margin-bottom: 0;
+    }
+
+    .main-content {
+        padding: 0 0;
+    }
 }
 </style>
