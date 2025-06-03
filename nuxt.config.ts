@@ -1,7 +1,16 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: '2025-05-15',
+  compatibilityDate: "2025-05-15",
   devtools: { enabled: true },
-  modules: ['@nuxt/eslint', '@nuxt/content'],
-  css: ['~/assets/css/main.css'],
-})
+  app: {
+    head: {
+      title: "Zachary Mayhew",
+      htmlAttrs: {
+        lang: "en",
+      },
+      link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+    },
+  },
+  modules: ["@nuxt/eslint", "@nuxt/content"],
+  css: ["~/assets/css/main.css"],
+});
