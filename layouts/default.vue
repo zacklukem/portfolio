@@ -3,7 +3,7 @@
         <div class="layout-container">
             <nav class="navbar">
                 <div class="nav-left">
-                    <a class="simple" href="/">Zachary Mayhew</a>
+                    <h1><a class="simple" href="/">Zachary Mayhew</a></h1>
                 </div>
                 <div class="nav-right">
                     <a href="https://github.com/zacklukem">GitHub</a>
@@ -53,7 +53,7 @@
     padding: 0 20px;
 }
 
-.nav-left {
+.nav-left h1 {
     font-weight: 600;
     font-size: 1.2rem;
 }
