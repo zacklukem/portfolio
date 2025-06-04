@@ -1,6 +1,6 @@
 ---
 date: 6/2/2025
-description: asdf
+description: This is an example test description about a blog post
 title: Title Here
 ---
 
