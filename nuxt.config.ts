@@ -12,5 +12,14 @@ export default defineNuxtConfig({
     },
   },
   modules: ["@nuxt/content"],
-  css: ["~/assets/css/main.css"],
+  css: ["~/assets/css/main.scss"],
+  content: {
+    build: {
+      markdown: {
+        highlight: {
+          theme: "github-dark",
+        },
+      },
+    },
+  },
 });

@@ -106,7 +106,7 @@
     </article>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .skills-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));

@@ -33,9 +33,9 @@
     </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .layout-container {
-    max-width: 600px;
+    max-width: 800px;
     flex-grow: 1;
 }
 
@@ -47,23 +47,23 @@
     margin-bottom: 40px;
     flex-wrap: wrap;
     gap: 20px;
+
+    .nav-left h1 {
+        font-weight: 600;
+        font-size: 1.2rem;
+    }
+
+    .nav-right {
+        justify-content: space-around;
+        display: flex;
+        gap: 20px;
+        row-gap: 3px;
+        flex-wrap: wrap;
+    }
 }
 
 .main-content {
     padding: 0 20px;
-}
-
-.nav-left h1 {
-    font-weight: 600;
-    font-size: 1.2rem;
-}
-
-.nav-right {
-    justify-content: space-around;
-    display: flex;
-    gap: 20px;
-    row-gap: 3px;
-    flex-wrap: wrap;
 }
 
 .body-wrapper {

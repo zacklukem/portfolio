@@ -1,10 +1,14 @@
-@import url("https://fonts.googleapis.com/css2?family=Sono:wght@200..800&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Sono:wght@200..800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Sono:wght,MONO@200..800,0..1&family=Source+Code+Pro&display=swap');
 
 body {
   margin: 0;
   padding: 0;
   font-family: "Sono", monospace;
-  background-color: #282c3b;
+  font-variation-settings: "MONO" 0.2;
+  --zlm-bg-color: #282c3b;
+  --zlm-bg-dark-color: #1f2330;
+  background-color: var(--zlm-bg-color);
   --zlm-text-color: #d2d0d0;
   color: var(--zlm-text-color);
   --zlm-link-color: #c09797;
@@ -19,11 +23,15 @@ a {
 a.simple {
   color: var(--zlm-text-color);
   text-decoration: none;
+
+  &:hover {
+    color: var(--zlm-text-color);
+    text-decoration: underline;
+  }
 }
 
-a.simple:hover {
-  color: var(--zlm-text-color);
-  text-decoration: underline;
+h1, h2, h3, h4, h5, h6 {
+  font-variation-settings: "MONO" 1;
 }
 
 h1 {
@@ -65,13 +73,13 @@ ul {
   display: flex;
   flex-direction: column;
   gap: 5px;
-}
 
-ul li::before {
-  content: "-";
-  display: inline-block;
-  width: 0;
-  transform: translateX(-15px);
+  li::before {
+    content: "-";
+    display: inline-block;
+    width: 0;
+    transform: translateX(-15px);
+  }
 }
 
 @media screen {
