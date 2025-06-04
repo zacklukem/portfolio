@@ -1,3 +1,12 @@
+<script setup lang="ts">
+// Just to trick the scrapers ;)
+let l1: string, l2: string;
+if (process.env.NODE_ENV === 'development') {
+    l1 = atob(atob("YldGNWFHVjNMbnBoWTJoaGNua3lNREF6UUdkdFlXbHNMbU52YlFvPQo="));
+    l2 = atob(atob("TkRBNExUY3dOeTB3TURRNENnPT0K"));
+}
+</script>
+
 <template>
     <div class="body-wrapper">
         <div class="layout-container">
@@ -6,8 +15,12 @@
                     <h1><a class="simple" href="/">Zachary Mayhew</a></h1>
                 </div>
                 <div class="nav-right">
-                    <PrintLink href="https://github.com/zacklukem">GitHub</PrintLink>
-                    <PrintLink href="https://linkedin.com/in/zacklukem">LinkedIn</PrintLink>
+                    <dev-only>
+                        <a :href="'te' + 'l' + ':' + l2">{{ l2 }}</a>
+                        <a :href="'mail' + 'to' + ':' + l1">{{ l1 }}</a>
+                    </dev-only>
+                    <print-link href="https://github.com/zacklukem">GitHub</print-link>
+                    <print-link href="https://linkedin.com/in/zacklukem">LinkedIn</print-link>
                 </div>
             </nav>
             <main class="main-content">
@@ -94,10 +107,21 @@
     .navbar {
         padding: 0;
         margin-bottom: 0;
+        padding: 0 0;
+        gap: 0;
+
+        h1 {
+            margin: 0;
+        }
     }
 
     .main-content {
         padding: 0 0;
+    }
+
+    .nav-right {
+        gap: 0px;
+        font-size: 0.8rem;
     }
 }
 </style>
