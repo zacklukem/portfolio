@@ -1,5 +1,5 @@
 // @import url("https://fonts.googleapis.com/css2?family=Sono:wght@200..800&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Sono:wght,MONO@200..800,0..1&family=Source+Code+Pro&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Sono:wght,MONO@200..800,0..1&family=Source+Code+Pro&display=swap");
 
 body {
   margin: 0;
@@ -30,7 +30,12 @@ a.simple {
   }
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-variation-settings: "MONO" 1;
 }
 
@@ -128,5 +133,19 @@ ul {
 
   .no-page-break {
     page-break-inside: avoid;
+  }
+}
+
+button {
+  margin-right: 16px;
+  padding: 8px 12px;
+  background-color: var(--zlm-bg-dark-color);
+  color: var(--zlm-text-color);
+  border: 2px solid var(--zlm-hr-color);
+  font-family: "Sono", monospace;
+  font-variation-settings: "MONO" 1;
+  cursor: pointer;
+  &:hover {
+    background-color: var(--zlm-bg-color);
   }
 }
