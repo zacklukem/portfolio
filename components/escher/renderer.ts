@@ -57,7 +57,7 @@ vec2 divc(vec2 a, vec2 b) {
 
 void main() {
   float A = 2.0 * PI;
-  float B = 16.0;
+  float B = pow(2.0, power);
   float x = (A*A) / (log(B)*log(B) + A*A);
   float y = (A*log(B)) / (log(B)*log(B) + A*A);
 

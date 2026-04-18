@@ -1,15 +1,14 @@
 <script setup lang="ts">
+import type { EscherContext } from "./context";
 import { createRenderer } from "./renderer";
 import { ref, useTemplateRef } from "vue";
+const ctx = inject<EscherContext>("escherContext")!;
 const canvas = useTemplateRef<HTMLCanvasElement>("canvas");
-const image = ref<HTMLImageElement>();
-const power = ref(4);
-const zoom = ref(1);
 
 onMounted(() => {
   const img = new Image();
   img.onload = () => {
-    image.value = img;
+    ctx.image = img;
   };
   img.src = "/escher.jpg";
 });
@@ -29,7 +28,7 @@ function onUpload(event: Event) {
   reader.onload = (e) => {
     const img = new Image();
     img.onload = () => {
-      image.value = img;
+      ctx.image = img;
     };
     img.src = e.target?.result as string;
   };
@@ -38,10 +37,10 @@ function onUpload(event: Event) {
 
 effect(() => {
   const renderer$ = renderer.value;
-  const image$ = image.value;
-  const power$ = power.value;
+  const image$ = ctx.image;
+  const power$ = ctx.power;
   const canvas$ = canvas.value;
-  const zoom$ = zoom.value;
+  const zoom$ = ctx.zoom;
   if (!renderer$ || !image$ || !canvas$) return;
 
   const height = 500;
@@ -71,19 +70,19 @@ effect(() => {
   <div class="inputs">
     <input type="file" @input="onUpload" />
     <label>
-      Power: {{ power }}
+      Power: {{ ctx.power }}
       <br />
-      <input type="range" step="1" min="1" max="10" v-model="power" />
+      <input type="range" step="1" min="1" max="10" v-model="ctx.power" />
     </label>
     <label>
-      Zoom: {{ zoom }}
+      Zoom: {{ ctx.zoom }}
       <br />
       <input
         type="range"
         step="0.01"
         min="1"
-        :max="Math.pow(2, power)"
-        v-model="zoom"
+        :max="Math.pow(2, ctx.power)"
+        v-model="ctx.zoom"
       />
     </label>
   </div>
