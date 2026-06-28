@@ -1,73 +1,14 @@
-const vsSource = `
-precision highp float;
+import vsSource from "./shaders/default.vsh?raw";
 
-attribute vec4 vertexPosition;
+export type Renderer<Params extends string[]> = ReturnType<
+  typeof createRenderer<Params>
+>;
 
-varying vec2 texCoord;
-
-void main() {
-  gl_Position = vertexPosition;
-  texCoord = vertexPosition.xy;
-}
-`;
-
-const fsSource = `
-precision highp float;
-
-uniform sampler2D image;
-uniform float power;
-uniform float zoom;
-
-varying vec2 texCoord;
-
-vec4 sample(vec2 coord) {
-  return texture2D(image, (coord * vec2(1.0, -1.0) + 1.0) / 2.0);
-}
-
-vec4 sampleWithDepth(vec2 coord) {
-  float factor = 1.0 / pow(2.0, power);
-  for (int i = 0; i < 18; i++) {
-    if (coord.x > factor || coord.x < -factor || coord.y > factor || coord.y < -factor) {
-      return sample(coord);
-    }
-    coord /= factor;
-  }
-  return sample(coord);
-}
-
-vec2 logc(vec2 c) {
-  return vec2(log(length(c)), atan(c.y, c.x));
-}
-
-vec2 expc(vec2 c) {
-  float r = exp(c.x);
-  return vec2(r * cos(c.y), r * sin(c.y));
-}
-
-vec2 mulc(vec2 a, vec2 b) {
-  return vec2(a.x * b.x - a.y * b.y, a.x * b.y + a.y * b.x);
-}
-
-vec2 divc(vec2 a, vec2 b) {
-  float denom = b.x * b.x + b.y * b.y;
-  return vec2((a.x * b.x + a.y * b.y) / denom, (a.y * b.x - a.x * b.y) / denom);
-}
-
-#define PI ${Math.PI}
-
-void main() {
-  float A = 2.0 * PI;
-  float B = pow(2.0, power);
-  float x = (A*A) / (log(B)*log(B) + A*A);
-  float y = (A*log(B)) / (log(B)*log(B) + A*A);
-
-  vec2 coords = expc(divc(logc(texCoord), vec2(x, y)));
-
-  gl_FragColor = sampleWithDepth(coords / (zoom * 16.0));
-}
-`;
-
-export function createRenderer(canvas: HTMLCanvasElement) {
+export function createRenderer<const Params extends string[]>(
+  canvas: HTMLCanvasElement,
+  fsSource: string,
+  params: Params,
+) {
   const gl = canvas.getContext("webgl2")!;
 
   let image: HTMLImageElement | null = null;
@@ -81,13 +22,14 @@ export function createRenderer(canvas: HTMLCanvasElement) {
 
   const uniformLocations = {
     image: gl.getUniformLocation(shaders, "image")!,
-    power: gl.getUniformLocation(shaders, "power")!,
-    zoom: gl.getUniformLocation(shaders, "zoom")!,
+    ...(Object.fromEntries(
+      params.map((param) => [param, gl.getUniformLocation(shaders, param)!]),
+    ) as Record<Params[number], WebGLUniformLocation>),
   };
 
   const { positionBuffer } = initBuffers();
 
-  function render(power: number, zoom: number) {
+  function render(params: Record<Params[number], number>) {
     gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
     gl.useProgram(shaders);
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
@@ -104,8 +46,9 @@ export function createRenderer(canvas: HTMLCanvasElement) {
     gl.activeTexture(gl.TEXTURE0);
     gl.bindTexture(gl.TEXTURE_2D, texture);
     gl.uniform1i(uniformLocations.image, 0);
-    gl.uniform1f(uniformLocations.power, power);
-    gl.uniform1f(uniformLocations.zoom, zoom);
+    for (const [key, value] of Object.entries(params)) {
+      gl.uniform1f(uniformLocations[key as Params[number]], value as number);
+    }
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
   }
 

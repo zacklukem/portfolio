@@ -1,23 +1,7 @@
 <script setup lang="ts">
 import type { EscherContext } from "./context";
-import { createRenderer } from "./renderer";
-import { ref, useTemplateRef } from "vue";
+import fsSource from "./shaders/picker.fsh?raw";
 const ctx = inject<EscherContext>("escherContext")!;
-const canvas = useTemplateRef<HTMLCanvasElement>("canvas");
-
-onMounted(() => {
-  const img = new Image();
-  img.onload = () => {
-    ctx.image = img;
-  };
-  img.src = "/escher.jpg";
-});
-
-const renderer = computed(() => {
-  if (!canvas.value) return null;
-
-  return createRenderer(canvas.value);
-});
 
 function onUpload(event: Event) {
   const target = event.target as HTMLInputElement;
@@ -34,38 +18,14 @@ function onUpload(event: Event) {
   };
   reader.readAsDataURL(file);
 }
-
-effect(() => {
-  const renderer$ = renderer.value;
-  const image$ = ctx.image;
-  const power$ = ctx.power;
-  const canvas$ = canvas.value;
-  const zoom$ = ctx.zoom;
-  if (!renderer$ || !image$ || !canvas$) return;
-
-  const height = 500;
-
-  canvas$.height = height * window.devicePixelRatio;
-  canvas$.width = canvas$.height * (image$.width / image$.height);
-
-  canvas$.style.width = `${canvas$.width / window.devicePixelRatio}px`;
-  canvas$.style.height = `${canvas$.height / window.devicePixelRatio}px`;
-
-  renderer$.setImage(image$);
-
-  const frame = requestAnimationFrame(() => {
-    renderer$.render(power$, zoom$);
-  });
-
-  return () => {
-    cancelAnimationFrame(frame);
-  };
-});
 </script>
 
 <template>
   <div class="canvas-container">
-    <canvas ref="canvas" width="500" height="500" />
+    <EscherCanvas
+      :fsSource="fsSource"
+      :params="{ power: ctx.power, zoom: ctx.zoom }"
+    />
   </div>
   <div class="inputs">
     <input type="file" @input="onUpload" />
