@@ -27,7 +27,6 @@ if (process.env.NODE_ENV === "development") {
           <print-link href="https://linkedin.com/in/zacklukem">
             LinkedIn
           </print-link>
-          <print-link href="/blog">Blog</print-link>
         </div>
       </nav>
       <main class="main-content">
